@@ -9,6 +9,8 @@ import (
 	"practice/examples/example2"
 	"practice/examples/example3"
 	"practice/examples/example4"
+	"practice/examples/example5"
+	"practice/examples/example6"
 )
 
 func main() {
@@ -20,10 +22,14 @@ func main() {
 	example4Flag := flag.Bool("example4", false, "Run example 4 (Testing Strategies)")
 	example4BenchmarkFlag := flag.Bool("example4-benchmark", false, "Run example 4 benchmarks")
 	example4IntegrationFlag := flag.Bool("example4-integration", false, "Run example 4 integration tests")
+	example5Flag := flag.Bool("example5", false, "Run example 5 (Package Design)")
+	example5IntegrationFlag := flag.Bool("example5-integration", false, "Run example 5 integration tests")
+	example6Flag := flag.Bool("example6", false, "Run example 6 (Performance Optimization)")
+	example6BenchmarkFlag := flag.Bool("example6-benchmark", false, "Run example 6 benchmarks")
 	flag.Parse()
 
 	// Check if any example flag is set
-	if !*example1Flag && !*example2Flag && !*example2PipelineFlag && !*example3Flag && !*example4Flag && !*example4BenchmarkFlag && !*example4IntegrationFlag {
+	if !*example1Flag && !*example2Flag && !*example2PipelineFlag && !*example3Flag && !*example4Flag && !*example4BenchmarkFlag && !*example4IntegrationFlag && !*example5Flag && !*example5IntegrationFlag && !*example6Flag && !*example6BenchmarkFlag {
 		fmt.Println("Please specify an example to run:")
 		fmt.Println("  --example1              Run example 1 (Interface Design)")
 		fmt.Println("  --example2              Run example 2 (Worker Pool)")
@@ -32,6 +38,10 @@ func main() {
 		fmt.Println("  --example4              Run example 4 (Table-Driven Tests)")
 		fmt.Println("  --example4-benchmark    Run example 4 (Benchmarks)")
 		fmt.Println("  --example4-integration  Run example 4 (Integration Tests)")
+		fmt.Println("  --example5              Run example 5 (Package Design)")
+		fmt.Println("  --example5-integration  Run example 5 (Integration Tests)")
+		fmt.Println("  --example6              Run example 6 (Performance Optimization)")
+		fmt.Println("  --example6-benchmark    Run example 6 (Benchmarks)")
 		os.Exit(1)
 	}
 
@@ -83,6 +93,34 @@ func main() {
 		fmt.Println("Running integration tests example:")
 		if err := example4.RunIntegration(); err != nil {
 			fmt.Printf("Error running integration tests: %v\n", err)
+		}
+	}
+
+	if *example5Flag {
+		fmt.Println("Running package design example:")
+		if err := example5.Run(); err != nil {
+			fmt.Printf("Error running package design example: %v\n", err)
+		}
+	}
+
+	if *example5IntegrationFlag {
+		fmt.Println("Running package design integration tests:")
+		if err := example5.RunIntegration(); err != nil {
+			fmt.Printf("Error running package design integration tests: %v\n", err)
+		}
+	}
+
+	if *example6Flag {
+		fmt.Println("Running performance optimization example:")
+		if err := example6.Run(); err != nil {
+			fmt.Printf("Error running performance optimization example: %v\n", err)
+		}
+	}
+
+	if *example6BenchmarkFlag {
+		fmt.Println("Running performance benchmarks:")
+		if err := example6.RunBenchmark(); err != nil {
+			fmt.Printf("Error running performance benchmarks: %v\n", err)
 		}
 	}
 }
