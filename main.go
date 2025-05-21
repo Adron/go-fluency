@@ -11,6 +11,8 @@ import (
 	"practice/examples/example4"
 	"practice/examples/example5"
 	"practice/examples/example6"
+	"practice/examples/example7"
+	"practice/examples/example8"
 )
 
 func main() {
@@ -26,10 +28,14 @@ func main() {
 	example5IntegrationFlag := flag.Bool("example5-integration", false, "Run example 5 integration tests")
 	example6Flag := flag.Bool("example6", false, "Run example 6 (Performance Optimization)")
 	example6BenchmarkFlag := flag.Bool("example6-benchmark", false, "Run example 6 benchmarks")
+	example7Flag := flag.Bool("example7", false, "Run example 7 (Dependency Management)")
+	example7BenchmarkFlag := flag.Bool("example7-benchmark", false, "Run example 7 benchmarks")
+	example8Flag := flag.Bool("example8", false, "Run example 8 (Standard Library)")
+	example8BenchmarkFlag := flag.Bool("example8-benchmark", false, "Run example 8 benchmarks")
 	flag.Parse()
 
 	// Check if any example flag is set
-	if !*example1Flag && !*example2Flag && !*example2PipelineFlag && !*example3Flag && !*example4Flag && !*example4BenchmarkFlag && !*example4IntegrationFlag && !*example5Flag && !*example5IntegrationFlag && !*example6Flag && !*example6BenchmarkFlag {
+	if !*example1Flag && !*example2Flag && !*example2PipelineFlag && !*example3Flag && !*example4Flag && !*example4BenchmarkFlag && !*example4IntegrationFlag && !*example5Flag && !*example5IntegrationFlag && !*example6Flag && !*example6BenchmarkFlag && !*example7Flag && !*example7BenchmarkFlag && !*example8Flag && !*example8BenchmarkFlag {
 		fmt.Println("Please specify an example to run:")
 		fmt.Println("  --example1              Run example 1 (Interface Design)")
 		fmt.Println("  --example2              Run example 2 (Worker Pool)")
@@ -42,6 +48,10 @@ func main() {
 		fmt.Println("  --example5-integration  Run example 5 (Integration Tests)")
 		fmt.Println("  --example6              Run example 6 (Performance Optimization)")
 		fmt.Println("  --example6-benchmark    Run example 6 (Benchmarks)")
+		fmt.Println("  --example7              Run example 7 (Dependency Management)")
+		fmt.Println("  --example7-benchmark    Run example 7 (Benchmarks)")
+		fmt.Println("  --example8              Run example 8 (Standard Library)")
+		fmt.Println("  --example8-benchmark    Run example 8 (Benchmarks)")
 		os.Exit(1)
 	}
 
@@ -121,6 +131,34 @@ func main() {
 		fmt.Println("Running performance benchmarks:")
 		if err := example6.RunBenchmark(); err != nil {
 			fmt.Printf("Error running performance benchmarks: %v\n", err)
+		}
+	}
+
+	if *example7Flag {
+		fmt.Println("Running dependency management example:")
+		if err := example7.Run(); err != nil {
+			fmt.Printf("Error running dependency management example: %v\n", err)
+		}
+	}
+
+	if *example7BenchmarkFlag {
+		fmt.Println("Running dependency management benchmarks:")
+		if err := example7.RunBenchmark(); err != nil {
+			fmt.Printf("Error running dependency management benchmarks: %v\n", err)
+		}
+	}
+
+	if *example8Flag {
+		fmt.Println("Running standard library example:")
+		if err := example8.Run(); err != nil {
+			fmt.Printf("Error running standard library example: %v\n", err)
+		}
+	}
+
+	if *example8BenchmarkFlag {
+		fmt.Println("Running standard library benchmarks:")
+		if err := example8.RunBenchmark(); err != nil {
+			fmt.Printf("Error running standard library benchmarks: %v\n", err)
 		}
 	}
 }
