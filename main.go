@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"practice/examples/example1"
+	"practice/examples/example10"
 	"practice/examples/example2"
 	"practice/examples/example3"
 	"practice/examples/example4"
@@ -13,6 +14,7 @@ import (
 	"practice/examples/example6"
 	"practice/examples/example7"
 	"practice/examples/example8"
+	"practice/examples/example9"
 )
 
 func main() {
@@ -32,10 +34,14 @@ func main() {
 	example7BenchmarkFlag := flag.Bool("example7-benchmark", false, "Run example 7 benchmarks")
 	example8Flag := flag.Bool("example8", false, "Run example 8 (Standard Library)")
 	example8BenchmarkFlag := flag.Bool("example8-benchmark", false, "Run example 8 benchmarks")
+	example9Flag := flag.Bool("example9", false, "Run example 9 (Tooling Ecosystem)")
+	example9BenchmarkFlag := flag.Bool("example9-benchmark", false, "Run example 9 benchmarks")
+	example10Flag := flag.Bool("example10", false, "Run example 10 (Idiomatic Go)")
+	example10BenchmarkFlag := flag.Bool("example10-benchmark", false, "Run example 10 benchmarks")
 	flag.Parse()
 
 	// Check if any example flag is set
-	if !*example1Flag && !*example2Flag && !*example2PipelineFlag && !*example3Flag && !*example4Flag && !*example4BenchmarkFlag && !*example4IntegrationFlag && !*example5Flag && !*example5IntegrationFlag && !*example6Flag && !*example6BenchmarkFlag && !*example7Flag && !*example7BenchmarkFlag && !*example8Flag && !*example8BenchmarkFlag {
+	if !*example1Flag && !*example2Flag && !*example2PipelineFlag && !*example3Flag && !*example4Flag && !*example4BenchmarkFlag && !*example4IntegrationFlag && !*example5Flag && !*example5IntegrationFlag && !*example6Flag && !*example6BenchmarkFlag && !*example7Flag && !*example7BenchmarkFlag && !*example8Flag && !*example8BenchmarkFlag && !*example9Flag && !*example9BenchmarkFlag && !*example10Flag && !*example10BenchmarkFlag {
 		fmt.Println("Please specify an example to run:")
 		fmt.Println("  --example1              Run example 1 (Interface Design)")
 		fmt.Println("  --example2              Run example 2 (Worker Pool)")
@@ -52,6 +58,10 @@ func main() {
 		fmt.Println("  --example7-benchmark    Run example 7 (Benchmarks)")
 		fmt.Println("  --example8              Run example 8 (Standard Library)")
 		fmt.Println("  --example8-benchmark    Run example 8 (Benchmarks)")
+		fmt.Println("  --example9              Run example 9 (Tooling Ecosystem)")
+		fmt.Println("  --example9-benchmark    Run example 9 (Benchmarks)")
+		fmt.Println("  --example10             Run example 10 (Idiomatic Go)")
+		fmt.Println("  --example10-benchmark   Run example 10 (Benchmarks)")
 		os.Exit(1)
 	}
 
@@ -159,6 +169,34 @@ func main() {
 		fmt.Println("Running standard library benchmarks:")
 		if err := example8.RunBenchmark(); err != nil {
 			fmt.Printf("Error running standard library benchmarks: %v\n", err)
+		}
+	}
+
+	if *example9Flag {
+		fmt.Println("Running tooling ecosystem example:")
+		if err := example9.Run(); err != nil {
+			fmt.Printf("Error running tooling ecosystem example: %v\n", err)
+		}
+	}
+
+	if *example9BenchmarkFlag {
+		fmt.Println("Running tooling ecosystem benchmarks:")
+		if err := example9.RunBenchmark(); err != nil {
+			fmt.Printf("Error running tooling ecosystem benchmarks: %v\n", err)
+		}
+	}
+
+	if *example10Flag {
+		fmt.Println("Running idiomatic Go example:")
+		if err := example10.Run(); err != nil {
+			fmt.Printf("Error running idiomatic Go example: %v\n", err)
+		}
+	}
+
+	if *example10BenchmarkFlag {
+		fmt.Println("Running idiomatic Go benchmarks:")
+		if err := example10.RunBenchmark(); err != nil {
+			fmt.Printf("Error running idiomatic Go benchmarks: %v\n", err)
 		}
 	}
 }
