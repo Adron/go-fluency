@@ -145,4 +145,144 @@ The example code demonstrates these concepts in a practical way, showing how to 
 
 - [Go Error Handling](https://go.dev/blog/error-handling-and-go)
 - [Working with Errors in Go 1.13](https://go.dev/blog/go1.13-errors)
-- [Error Handling in Go](https://go.dev/doc/effective_go#errors) 
+- [Error Handling in Go](https://go.dev/doc/effective_go#errors)
+
+### AI-Suggested vs. Proper Code Examples
+
+1. **Basic Error Handling**:
+```go
+// AI-Suggested (Problematic):
+func processUser(user *User) error {
+    if user == nil {
+        return errors.New("user is nil")
+    }
+    if user.Name == "" {
+        return errors.New("name is empty")
+    }
+    return nil
+}
+
+// Proper Implementation:
+func processUser(user *User) error {
+    if user == nil {
+        return fmt.Errorf("invalid user: %w", ErrInvalidInput)
+    }
+    if user.Name == "" {
+        return &ValidationError{
+            Field: "name",
+            Value: user.Name,
+            Err:   ErrInvalidInput,
+        }
+    }
+    return nil
+}
+```
+
+2. **Error Wrapping**:
+```go
+// AI-Suggested (Problematic):
+func fetchUser(id int) (*User, error) {
+    user, err := db.GetUser(id)
+    if err != nil {
+        return nil, err
+    }
+    return user, nil
+}
+
+// Proper Implementation:
+func fetchUser(id int) (*User, error) {
+    user, err := db.GetUser(id)
+    if err != nil {
+        if errors.Is(err, sql.ErrNoRows) {
+            return nil, fmt.Errorf("user %d: %w", id, ErrNotFound)
+        }
+        return nil, fmt.Errorf("failed to fetch user %d: %w", id, err)
+    }
+    return user, nil
+}
+```
+
+### ⚠️ Warnings About AI Tool Over-Reliance
+
+1. **Error Context Loss**:
+   - AI tools often strip error context
+   - They may not preserve error chains
+   - They might miss important error types
+   - They often don't consider error wrapping
+
+2. **Common Pitfalls**:
+   - Generic error messages without context
+   - Missing error type information
+   - Improper error propagation
+   - Ignored errors in defer statements
+
+3. **Real-World Issues**:
+   - Debugging difficulties due to lost error context
+   - Production issues from swallowed errors
+   - Inconsistent error handling patterns
+   - Missing error type information in logs
+
+### Maintaining Fluency Through Practice
+
+1. **Daily Exercises**:
+   - Write error handling without AI assistance
+   - Review and refactor error handling in existing code
+   - Practice different error patterns
+   - Implement proper error wrapping
+
+2. **Code Review Checklist**:
+   - Verify error context preservation
+   - Check for proper error wrapping
+   - Ensure consistent error patterns
+   - Validate error type usage
+   - Review error documentation
+
+3. **Learning Resources**:
+   - Go Error Handling (https://go.dev/blog/error-handling-and-go)
+   - Working with Errors in Go 1.13 (https://go.dev/blog/go1.13-errors)
+   - Error Handling in Go (https://go.dev/doc/effective_go#errors)
+   - Go Error Handling Patterns (talks)
+
+### Real-World AI-Generated Code Issues
+
+1. **Case Study: Lost Error Context**:
+```go
+// AI-Generated Code (Problematic):
+func processData(data []byte) error {
+    if err := validate(data); err != nil {
+        return err  // Lost context!
+    }
+    return nil
+}
+
+// Fixed Version:
+func processData(data []byte) error {
+    if err := validate(data); err != nil {
+        return fmt.Errorf("failed to validate data: %w", err)
+    }
+    return nil
+}
+```
+
+2. **Case Study: Improper Error Type**:
+```go
+// AI-Generated Code (Problematic):
+func getUser(id int) (*User, error) {
+    if id <= 0 {
+        return nil, errors.New("invalid id")  // Generic error!
+    }
+    // ...
+}
+
+// Fixed Version:
+func getUser(id int) (*User, error) {
+    if id <= 0 {
+        return nil, &ValidationError{
+            Field: "id",
+            Value: id,
+            Err:   ErrInvalidInput,
+        }
+    }
+    // ...
+}
+``` 
