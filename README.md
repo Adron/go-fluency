@@ -1,4 +1,4 @@
-# Go Practice Blog Series
+# Go Fluency Blog Series
 
 This repository contains a series of blog posts and practical examples exploring various aspects of Go programming. Each post comes with working example code to help you understand the concepts better.
 
